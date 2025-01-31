@@ -51,4 +51,4 @@ jobs:
   
       - name: Push to Hugging Face Space
         run: |
-          git push --force https://${{ secrets.HUGGINGFACE_USERNAME }}:${{ secrets.HUGGINGFACE_TOKEN }}@huggingface.co/spaces/${{ secrets.HUGGINGFACE_USERNAME }}/material_corrosion main
+          git push --force https://${{ secrets.HUGGINGFACE_USERNAME }}:${{ secrets.HUGGINGFACE_TOKEN }}@huggingface.co/spaces/${{ secrets.HUGGINGFACE_USERNAME }}/material_corrosion master:main
