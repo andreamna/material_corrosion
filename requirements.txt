@@ -1,0 +1,8 @@
+flask
+torch
+torchvision
+gradio
+huggingface_hub
+flask-cors
+opencv-python-headless  # if you need OpenCV functionality
+

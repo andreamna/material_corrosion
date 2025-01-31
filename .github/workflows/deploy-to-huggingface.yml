@@ -1,0 +1,48 @@
+name: Deploy to Hugging Face Space
+
+on:
+  push:
+    branches:
+      - master
+      - main
+    paths:
+      - 'corrosion-backend/app.py'
+      - 'front-end/metalCorrosion/src/App.tsx'
+      - 'front-end/metalCorrosion/src/App.css'
+      - 'requirements.txt'
+      - 'corrosion-backend/final_corrosion_model.pth'
+      - 'front-end/metalCorrosion/package.json'
+      - 'front-end/metalCorrosion/package-lock.json'
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout GitHub repository
+        uses: actions/checkout@v2
+
+      - name: Set up Python
+        uses: actions/setup-python@v2
+        with:
+          python-version: '3.x'
+
+      - name: Install dependencies
+        run: |
+          pip install -r requirements.txt
+          pip install huggingface_hub
+
+      - name: Install Node.js and frontend dependencies
+        run: |
+          curl -sL https://deb.nodesource.com/setup_16.x | sudo -E bash -
+          sudo apt-get install -y nodejs
+          cd front-end/metalCorrosion
+          npm install  # or `yarn install` if you're using yarn
+
+      - name: Log in to Hugging Face
+        run: echo "${{ secrets.HUGGINGFACE_TOKEN }}" | huggingface-cli login
+
+      - name: Push to Hugging Face Space
+        run: |
+          git remote add space https://huggingface.co/spaces/andreamena/material_corrosion
+          git push --force space master:main  # Ensure that you're pushing to the correct branch
