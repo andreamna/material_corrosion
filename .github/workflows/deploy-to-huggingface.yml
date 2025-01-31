@@ -39,8 +39,10 @@ jobs:
           cd front-end/metalCorrosion
           npm install  # or `yarn install` if you're using yarn
 
-      - name: Log in to Hugging Face
-        run: echo "${{ secrets.HUGGINGFACE_TOKEN }}" | huggingface-cli login
+      - name: Hugging Face Login
+        run: echo ${{ secrets.HUGGINGFACE_TOKEN }} | huggingface-cli login --token
+        env:
+          HUGGINGFACE_TOKEN: ${{ secrets.HUGGINGFACE_TOKEN }}
 
       - name: Push to Hugging Face Space
         run: |
