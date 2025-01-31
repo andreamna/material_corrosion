@@ -10,7 +10,6 @@ on:
       - 'front-end/metalCorrosion/src/App.tsx'
       - 'front-end/metalCorrosion/src/App.css'
       - 'requirements.txt'
-      - 'corrosion-backend/final_corrosion_model.pth'
       - 'front-end/metalCorrosion/package.json'
       - 'front-end/metalCorrosion/package-lock.json'
 
