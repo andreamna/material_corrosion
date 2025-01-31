@@ -39,8 +39,9 @@ jobs:
           cd front-end/metalCorrosion
           npm install  # or `yarn install` if you're using yarn
 
-      - name: Hugging Face Login
-        run: echo ${{ secrets.HUGGINGFACE_TOKEN }} | huggingface-cli login 
+      - name: Hugging Face Login (non-interactive)
+        run: |
+          python -c "from huggingface_hub import login; login(token='${{ secrets.HUGGINGFACE_TOKEN }}')"
         env:
           HUGGINGFACE_TOKEN: ${{ secrets.HUGGINGFACE_TOKEN }}
 
