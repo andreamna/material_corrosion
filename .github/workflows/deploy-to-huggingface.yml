@@ -40,7 +40,7 @@ jobs:
           npm install  # or `yarn install` if you're using yarn
 
       - name: Hugging Face Login
-        run: echo ${{ secrets.HUGGINGFACE_TOKEN }} | huggingface-cli login --token
+        run: echo ${{ secrets.HUGGINGFACE_TOKEN }} | huggingface-cli login 
         env:
           HUGGINGFACE_TOKEN: ${{ secrets.HUGGINGFACE_TOKEN }}
 
