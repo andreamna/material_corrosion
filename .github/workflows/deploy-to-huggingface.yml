@@ -45,8 +45,10 @@ jobs:
         env:
           HUGGINGFACE_TOKEN: ${{ secrets.HUGGINGFACE_TOKEN }}
 
-      - name: Push to Hugging Face Space
+      - name: Add Hugging Face remote
         run: |
           git remote add space https://huggingface.co/spaces/${{ secrets.HUGGINGFACE_USERNAME }}/material_corrosion
-          git push --force space master:main  # Ensure that you're pushing to the correct branch
-        
+  
+      - name: Push to Hugging Face Space
+        run: |
+          git push --force space master:main
