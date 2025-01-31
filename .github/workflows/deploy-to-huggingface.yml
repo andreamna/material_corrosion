@@ -46,12 +46,6 @@ jobs:
           python -c "from huggingface_hub import login; login(token='${{ secrets.HUGGINGFACE_TOKEN }}')"
         env:
           HUGGINGFACE_TOKEN: ${{ secrets.HUGGINGFACE_TOKEN }}
-
-      - name: Check if repo is shallow
-        run: |
-          if git rev-parse --is-shallow-repository; then
-            git fetch --unshallow
-          fi
       
       - name: Add Hugging Face remote
         run: |
