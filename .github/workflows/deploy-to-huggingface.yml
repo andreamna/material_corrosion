@@ -31,7 +31,7 @@ jobs:
 
       - name: Install dependencies
         run: |
-          pip install -r requirements.txt
+          pip install --no-cache-dir --upgrade -r requirements.txt
           pip install huggingface_hub
 
       - name: Install Node.js and frontend dependencies
