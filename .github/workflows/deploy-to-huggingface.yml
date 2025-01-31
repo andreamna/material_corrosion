@@ -20,7 +20,9 @@ jobs:
 
     steps:
       - name: Checkout GitHub repository
-        uses: actions/checkout@v2
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
 
       - name: Set up Python
         uses: actions/setup-python@v2
@@ -45,6 +47,12 @@ jobs:
         env:
           HUGGINGFACE_TOKEN: ${{ secrets.HUGGINGFACE_TOKEN }}
 
+      - name: Check if repo is shallow
+        run: |
+          if git rev-parse --is-shallow-repository; then
+            git fetch --unshallow
+          fi
+      
       - name: Add Hugging Face remote
         run: |
           git remote add space https://huggingface.co/spaces/${{ secrets.HUGGINGFACE_USERNAME }}/material_corrosion
