@@ -64,7 +64,7 @@ function App() {
     console.log('Uploading image:', selectedFile);
 
     try {
-      const response = await fetch('https://004d-34-48-191-189.ngrok-free.app/predict', {
+      const response = await fetch('https://c9dd-34-48-191-189.ngrok-free.app/predict', {
         method: 'POST',
         headers: {
           'Authorization': 'Bearer 2sQmqAJ0IMAPb0Cfz6NBPhCbTcw_5sdEaQe4sMjJ58pg6aceB',
