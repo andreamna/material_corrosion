@@ -61,6 +61,7 @@ function App() {
 
     const formData = new FormData();
     formData.append('image', selectedFile); 
+    console.log('Uploading image:', selectedFile);
 
     try {
       const response = await fetch('https://0771-34-48-191-189.ngrok-free.app/predict', {
@@ -71,11 +72,13 @@ function App() {
         body: formData,
       });
 
+      console.log('Response status:', response.status);
       if (!response.ok) {
         throw new Error('Failed to upload and classify the image.');
       }
 
       const data = await response.json();
+      console.log('API response:', data);
       setClassificationResult(data['predicted corrosion level']);
       setHeatmapUrl(`${data.heatmap_url}&timestamp=${Date.now()}`);
 
