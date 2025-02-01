@@ -38,8 +38,7 @@ function App() {
   };
   const { getRootProps, getInputProps } = useDropzone({
     accept: {
-      'image/png': [],
-      'image/jpeg': [],
+      'image/*': ['.jpeg', '.png'],
     },
     maxFiles: 1,
     multiple: false,
