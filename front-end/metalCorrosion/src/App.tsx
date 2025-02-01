@@ -81,6 +81,8 @@ function App() {
       console.log('API response:', data);
       setClassificationResult(data['predicted corrosion level']);
       setHeatmapUrl(`${data.heatmap_url}&timestamp=${Date.now()}`);
+      console.log('Predicted Corrosion Level:', data['predicted_corrosion_level']);
+      console.log('Heatmap URL:', data['heatmap_url']);
 
     } catch (error) {
       console.error(error);
