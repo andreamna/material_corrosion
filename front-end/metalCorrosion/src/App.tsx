@@ -38,7 +38,8 @@ function App() {
   };
   const { getRootProps, getInputProps } = useDropzone({
     accept: {
-      'image': ['image/png', 'image/jpeg'], 
+      'image/png': [],
+      'image/jpeg': []
     },
     maxFiles: 1,
     multiple: false,
@@ -65,6 +66,9 @@ function App() {
     try {
       const response = await fetch('https://9433-35-224-155-119.ngrok-free.app/predict', {
         method: 'POST',
+        headers: {
+          'Authorization': 'Bearer 2sQmqAJ0IMAPb0Cfz6NBPhCbTcw_5sdEaQe4sMjJ58pg6aceB',
+        },
         body: formData,
       });
 
