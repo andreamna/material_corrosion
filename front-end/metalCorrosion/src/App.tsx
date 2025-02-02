@@ -146,9 +146,7 @@ function App() {
               <p>Heatmap URL not available</p>  // Debug message
             )}
           </div>
-        ) : (
-          <p>No classification result available</p>  // Debug message
-        )}
+        ) : null}
       </header>
     </div>
   );
