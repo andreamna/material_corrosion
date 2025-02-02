@@ -57,7 +57,7 @@ function App() {
     formData.append('image', selectedFile);
 
     try {
-      const response = await fetch('https://huggingface.co/spaces/andreamena/material_corrosion_backend', {
+      const response = await fetch('https://material-corrosion.onrender.com/predict', {
         method: 'POST',
         headers: {
           'Authorization': 'Bearer 2sQmqAJ0IMAPb0Cfz6NBPhCbTcw_5sdEaQe4sMjJ58pg6aceB',
