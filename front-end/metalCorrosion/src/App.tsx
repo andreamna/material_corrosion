@@ -130,7 +130,7 @@ function App() {
                       <h3 className="text-lg font-semibold">Grad-CAM Heatmap</h3>
                       <img
                         key={`${heatmapUrl}?t=${new Date().getTime()}`}
-                        src={heatmapUrl}
+                        src={`${heatmapUrl}?t=${new Date().getTime()}`}
                         alt="Grad-CAM Heatmap"
                         className="heatmap-image"
                       />
