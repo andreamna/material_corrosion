@@ -57,7 +57,7 @@ function App() {
     formData.append('image', selectedFile);
 
     try {
-      const response = await fetch('https://e126-35-230-3-237.ngrok-free.app/predict', {
+      const response = await fetch('https://huggingface.co/spaces/andreamena/material_corrosion_backend', {
         method: 'POST',
         headers: {
           'Authorization': 'Bearer 2sQmqAJ0IMAPb0Cfz6NBPhCbTcw_5sdEaQe4sMjJ58pg6aceB',
