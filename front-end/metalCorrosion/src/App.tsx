@@ -124,14 +124,15 @@ function App() {
           </div>
         )}
 
-        {classificationResult && (
+        {classificationResult ? (
           <div className="mt-6">
             <h3 className="mt-2">Predicted Corrosion Level: {classificationResult}</h3>
 
             {corrosionDescriptions[classificationResult] && (
-              <CorrosionRatingGuide rating={classificationResult} />
+              <CorrosionRatingGuide rating={String(classificationResult)} />
             )}
-            {heatmapUrl && (
+
+            {heatmapUrl ? (
               <div className="mt-4">
                 <h3 className="text-lg font-semibold">Grad-CAM Heatmap</h3>
                 <img
@@ -140,9 +141,13 @@ function App() {
                   alt="Grad-CAM Heatmap"
                   className="heatmap-image"
                 />
-              </div>  
+              </div>
+            ) : (
+              <p>Heatmap URL not available</p>  // Debug message
             )}
           </div>
+        ) : (
+          <p>No classification result available</p>  // Debug message
         )}
       </header>
     </div>
