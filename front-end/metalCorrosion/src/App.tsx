@@ -64,7 +64,7 @@ function App() {
     console.log('Uploading image:', selectedFile);
 
     try {
-      const response = await fetch('https://45d3-35-230-3-237.ngrok-free.app/predict', {
+      const response = await fetch('https://1ae2-35-230-3-237.ngrok-free.app/predict', {
         method: 'POST',
         headers: {
           'Authorization': 'Bearer 2sQmqAJ0IMAPb0Cfz6NBPhCbTcw_5sdEaQe4sMjJ58pg6aceB',
@@ -83,6 +83,7 @@ function App() {
       setHeatmapUrl(`${data.heatmap_url}&timestamp=${Date.now()}`);
       console.log('Predicted Corrosion Level:', data['predicted_corrosion_level']);
       console.log('Heatmap URL:', data['heatmap_url']);
+      console.log('Status:', data['status']);
 
     } catch (error) {
       console.error(error);
