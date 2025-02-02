@@ -1,7 +1,7 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import './App.css';
 import { ClipLoader } from 'react-spinners';
-import { useDropzone } from 'react-dropzone';   
+import { useDropzone } from 'react-dropzone';
 
 const corrosionDescriptions: Record<string, string> = {
   '5': 'Severe corrosion with extensive rust formation and material degradation. Large, heavily corroded areas with deep rust penetration. Scribe marks are almost fully covered. Immediate intervention required to prevent structural failure.',
@@ -24,18 +24,12 @@ function App() {
   const [classificationResult, setClassificationResult] = useState<string | null>(null);
   const [heatmapUrl, setHeatmapUrl] = useState<string | null>(null);
   const [loading, setLoading] = useState<boolean>(false);
-  const [files, setFiles] = useState<File[]>([]); 
 
   const onDrop = (acceptedFiles: File[]) => {
-    setFiles(
-      acceptedFiles.map((file) =>
-        Object.assign(file, {
-          preview: URL.createObjectURL(file), 
-        })
-      )
-    );
     setSelectedFile(acceptedFiles[0]);
   };
+
+  // Move this hook outside of onDrop function
   const { getRootProps, getInputProps } = useDropzone({
     accept: {
       'image/*': ['.jpeg', '.png'],
@@ -44,7 +38,6 @@ function App() {
     multiple: false,
     onDrop,
   });
-  
 
   const handleUpload = async () => {
     if (!selectedFile) {
@@ -58,13 +51,13 @@ function App() {
     }
 
     setLoading(true);
+    setHeatmapUrl(null);
 
     const formData = new FormData();
-    formData.append('image', selectedFile); 
-    console.log('Uploading image:', selectedFile);
+    formData.append('image', selectedFile);
 
     try {
-      const response = await fetch('https://1ae2-35-230-3-237.ngrok-free.app/predict', {
+      const response = await fetch('https://e126-35-230-3-237.ngrok-free.app/predict', {
         method: 'POST',
         headers: {
           'Authorization': 'Bearer 2sQmqAJ0IMAPb0Cfz6NBPhCbTcw_5sdEaQe4sMjJ58pg6aceB',
@@ -72,21 +65,21 @@ function App() {
         body: formData,
       });
 
-      console.log('Response status:', response.status);
       if (!response.ok) {
         throw new Error('Failed to upload and classify the image.');
       }
 
       const data = await response.json();
-      console.log('API response:', data);
-      setClassificationResult(data['predicted corrosion level']);
-      setHeatmapUrl(`${data.heatmap_url}&timestamp=${Date.now()}`);
-      console.log('Predicted Corrosion Level:', data['predicted_corrosion_level']);
-      console.log('Heatmap URL:', data['heatmap_url']);
-      console.log('Status:', data['status']);
+      console.log('Backend Response:', data);
+      setClassificationResult(String(data.predicted_corrosion_level));
+      console.log('Classification Result:', data['predicted corrosion level']);
+      setHeatmapUrl(`${data.heatmap_url}`);
+      console.log('Selected File:', selectedFile);
+      console.log('Classification Result:', classificationResult);
+      console.log('Heatmap URL:', heatmapUrl);
+
 
     } catch (error) {
-      console.error(error);
       alert('An error occurred while processing your request. Please try again.');
     } finally {
       setLoading(false);
@@ -124,32 +117,30 @@ function App() {
           </div>
         )}
 
-        {classificationResult ? (
-          <div className="mt-6">
-            <h3 className="mt-2">Predicted Corrosion Level: {classificationResult}</h3>
+        {classificationResult && (
+                <div className="mt-6">
+                  <h3 className="mt-2">Predicted Corrosion Level: {classificationResult}</h3>
 
-            {corrosionDescriptions[classificationResult] && (
-              <CorrosionRatingGuide rating={String(classificationResult)} />
-            )}
+                  {corrosionDescriptions[classificationResult] && (
+                    <CorrosionRatingGuide rating={String(classificationResult)} />
+                  )}
 
-            {heatmapUrl ? (
-              <div className="mt-4">
-                <h3 className="text-lg font-semibold">Grad-CAM Heatmap</h3>
-                <img
-                  key={heatmapUrl}
-                  src={heatmapUrl}
-                  alt="Grad-CAM Heatmap"
-                  className="heatmap-image"
-                />
-              </div>
-            ) : (
-              <p>Heatmap URL not available</p>  // Debug message
-            )}
+                  {heatmapUrl ? (
+                    <div className="mt-4">
+                      <h3 className="text-lg font-semibold">Grad-CAM Heatmap</h3>
+                      <img
+                        key={`${heatmapUrl}?t=${new Date().getTime()}`}
+                        src={heatmapUrl}
+                        alt="Grad-CAM Heatmap"
+                        className="heatmap-image"
+                      />
+                    </div>
+                  ) : null}
+                </div>
+              )}
+            </header>
           </div>
-        ) : null}
-      </header>
-    </div>
-  );
+        );
 }
 
 export default App;
