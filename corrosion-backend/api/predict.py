@@ -14,7 +14,7 @@ from flask_cors import CORS
 
 
 app = Flask(__name__)
-CORS(app, origins="https://material-corrosion-hcos.vercel.app")
+CORS(app, origins=["https://material-corrosion-hcos.vercel.app"])
 
 class_to_corrosion_level = {1: 5, 2: 6, 3: 7, 4: 8, 5: 9}
 file_id = '1WX92JEuqkS9CbmPhBQNZumiX4MrvW5Tj'
