@@ -1,13 +1,20 @@
 import gradio as gr
 import os
 
-def greet(name):
-    return "Hello " + name + "!!"
+def classify_corrosion(image):
+    # Replace with actual processing logic
+    return "8"  # Example predicted corrosion level
 
-demo = gr.Interface(fn=greet, inputs="text", outputs="text")
+# Create an API endpoint
+app = gr.Interface(
+    fn=classify_corrosion,
+    inputs="image",
+    outputs="text",
+    live=True
+)
 
-# Get Railway's assigned port (default to 7860 if not set)
+# Use Railway's assigned port
 port = int(os.environ.get("PORT", 7860))
 
-# Launch Gradio on 0.0.0.0 to allow external access
-demo.launch(server_name="0.0.0.0", server_port=port)
+# Launch API-only server (no UI)
+app.launch(server_name="0.0.0.0", server_port=port, share=False)
