@@ -57,7 +57,7 @@ function App() {
     formData.append('image', selectedFile);
 
     try {
-      const response = await fetch('https://material-corrosion.onrender.com/predict', {
+      const response = await fetch('https://materialcorrosion-production.up.railway.app/predict', {
         method: 'POST',
         headers: {
           'Authorization': 'Bearer 2sQmqAJ0IMAPb0Cfz6NBPhCbTcw_5sdEaQe4sMjJ58pg6aceB',
